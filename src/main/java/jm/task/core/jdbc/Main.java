@@ -11,10 +11,13 @@ public class Main {
 
         userDao.createUsersTable();
 
-        userDao.saveUser("Иван", "Иванов", (byte) 27);
-        userDao.saveUser("Петр", "Петров", (byte) 10);
-        userDao.saveUser("Виктор", "Сидоров", (byte) 38);
-        userDao.saveUser("Эльдар", "Столов", (byte) 78);
+        int a = 18;
+        int b = 99;
+        int c = a + (int) (Math.random() * b);
+        for (int i = 1; i < 5; i++) {
+            userDao.saveUser("User" + i, "Userov", (byte) c);
+        }
+
 
         userDao.removeUserById(1);
         userDao.getAllUsers();
