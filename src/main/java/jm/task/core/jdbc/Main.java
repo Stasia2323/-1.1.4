@@ -11,11 +11,8 @@ public class Main {
 
         userDao.createUsersTable();
 
-        int a = 18;
-        int b = 99;
-        int c = a + (int) (Math.random() * b);
         for (int i = 1; i < 5; i++) {
-            userDao.saveUser("User" + i, "Userov", (byte) c);
+            userDao.saveUser("User" + i, "Userov", (byte) 4);
         }
 
 
