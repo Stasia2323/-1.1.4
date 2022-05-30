@@ -65,8 +65,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
 
-
-
     public List<User> getAllUsers() {
         String getAll = "SELECT * FROM users";
         List<User> userList = new ArrayList<>();
