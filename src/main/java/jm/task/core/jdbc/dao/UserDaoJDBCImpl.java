@@ -21,6 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
     //добавлено закрытие конекшн
 
 
+
     public void createUsersTable() {
         try (Statement statement = Util.getConnection().createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS users" +
