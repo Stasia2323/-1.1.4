@@ -18,6 +18,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
     }
 
+    //добавлен закрытие конекшн
 
     public void createUsersTable() {
         try (Statement statement = Util.getConnection().createStatement()) {
