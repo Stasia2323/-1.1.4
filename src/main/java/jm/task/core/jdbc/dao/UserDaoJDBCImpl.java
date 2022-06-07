@@ -36,7 +36,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try (Statement statement = Util.getConnection().createStatement()) {
             statement.execute("DROP TABLE IF  EXISTS users");
-            getConnection().close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.execute();
 
             System.out.println("User с именем – " + name + " добавлен в базу данных");
-            getConnection().close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +61,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement statement = Util.getConnection().prepareStatement
                 ("DELETE FROM users WHERE id = ?")) {
             statement.setLong(1, id);
-            getConnection().close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -87,12 +87,6 @@ public class UserDaoJDBCImpl implements UserDao {
             return userList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                getConnection().close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
 
     }
@@ -101,7 +95,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         try ( Statement statement = Util.getConnection().createStatement()) {
             statement.execute("TRUNCATE TABLE users");
-            getConnection().close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
