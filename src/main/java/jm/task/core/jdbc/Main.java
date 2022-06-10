@@ -10,6 +10,7 @@ public class Main {
         UserDao userDao = new UserDaoJDBCImpl();
 
         userDao.createUsersTable();
+
         // добавлен цикл
 
         for (int i = 1; i < 5; i++) {
