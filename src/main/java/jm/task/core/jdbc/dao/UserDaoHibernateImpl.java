@@ -33,6 +33,9 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
                     "age TINYINT NOT NULL)";
             session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
+            if (transaction != null) {
+                transaction.rollback();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,8 +49,12 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             String sql = "DROP TABLE IF EXISTS users";
             session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
+            if (transaction != null) {
+                transaction.rollback();
+            }
         } catch (Exception e) {
             e.printStackTrace();
+
         }
     }
 
@@ -55,11 +62,14 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
     @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx1 = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
-            tx1.commit();
+            transaction.commit();
 
             System.out.println("User с именем – " + name + " добавлен в базу данных");
+            if (transaction != null) {
+                transaction.rollback();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,9 +78,12 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
     @Override
     public void removeUserById(long id) {
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx1 = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
-            tx1.commit();
+            transaction.commit();
+            if (transaction != null) {
+                transaction.rollback();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,9 +93,12 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             users = session.createQuery ("From User").list();
-            tx.commit();
+            transaction.commit();
+            if (transaction != null) {
+                transaction.rollback();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,9 +108,12 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
     @Override
     public void cleanUsersTable() {
         try (Session session = sessionFactory.openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
-            tx.commit();
+            transaction.commit();
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
