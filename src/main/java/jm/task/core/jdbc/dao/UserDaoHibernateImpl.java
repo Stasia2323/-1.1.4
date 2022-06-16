@@ -33,9 +33,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
                     "age TINYINT NOT NULL)";
             session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,9 +46,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             String sql = "DROP TABLE IF EXISTS users";
             session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -67,9 +61,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             transaction.commit();
 
             System.out.println("User с именем – " + name + " добавлен в базу данных");
-            if (transaction != null) {
-                transaction.rollback();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,9 +72,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             Transaction transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
             transaction.commit();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,9 +84,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             Transaction transaction = session.beginTransaction();
             users = session.createQuery ("From User").list();
             transaction.commit();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,9 +96,6 @@ private final SessionFactory sessionFactory=Util.getSessionFactory();
             Transaction transaction = session.beginTransaction();
             session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
             transaction.commit();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }catch (Exception e){
             e.printStackTrace();
         }

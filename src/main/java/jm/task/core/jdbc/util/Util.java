@@ -63,4 +63,21 @@ public class Util {
         }
     return sessionFactory;
 }
+
+
+    public static void closeconn() {
+        try {
+            getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closesesFac() {
+        try {
+            getSessionFactory().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
